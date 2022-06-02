@@ -11,6 +11,9 @@ part 'task_state.dart';
 class TaskCubit extends Cubit<TaskState> {
   List<Task> _tasks = [];
   List<Task> _completedTasks = [];
+  DateTime? _deadline = DateTime(DateTime.now().year, DateTime.now().month,
+      DateTime.now().day, DateTime.now().hour, DateTime.now().minute);
+
   TaskCubit() : super(TaskInitial());
 
   Future<void> getTasks() async {
@@ -24,11 +27,19 @@ class TaskCubit extends Cubit<TaskState> {
   }
 
   void toggleTask(Task task) {
-    task.isDone ? _completedTasks.add(task) : _completedTasks.remove(task);
+    if (task.isDone) {
+      _completedTasks.add(task);
+      NotificationHelper.cancelNotification(task.id!);
+      emit(TaskUpdated(updatedTasks: _tasks, completedTasks: _completedTasks));
+    } else {
+      _completedTasks.remove(task);
+      _showNotification(_deadline!, task);
+    }
     emit(TaskUpdated(updatedTasks: _tasks, completedTasks: _completedTasks));
   }
 
   void addTask(Task task, DateTime deadline) async {
+    _deadline = deadline;
     int taskID = await DBHelper.insertData(
         Task(name: task.name, deadline: task.deadline));
     _tasks.add(
@@ -47,7 +58,7 @@ class TaskCubit extends Cubit<TaskState> {
   void _showNotification(DateTime deadline, Task task) {
     String deadlineString = _getNotificationTime(deadline);
     NotificationHelper.showNotification(n.Notification(
-        id: 0,
+        id: task.id!,
         title: 'Hey!',
         body: 'Time To ${task.name} At $deadlineString',
         payload: 'payload',
@@ -67,6 +78,7 @@ class TaskCubit extends Cubit<TaskState> {
     _tasks.removeAt(index);
     _completedTasks.removeWhere((task) => task.id == id);
     DBHelper.deleteData(id);
+    NotificationHelper.cancelNotification(id);
     emit(SnackBarShown(taskState: 'Deleted', color: Colors.red));
     emit(TaskUpdated(updatedTasks: _tasks, completedTasks: _completedTasks));
   }
@@ -75,7 +87,7 @@ class TaskCubit extends Cubit<TaskState> {
     _tasks[index].name = task.name;
     _tasks[index].deadline = task.deadline;
     DBHelper.updateData(_tasks[index]);
-    _showNotification(deadline, task);
+    _showNotification(deadline, _tasks[index]);
     emit(SnackBarShown(taskState: 'Edited', color: Colors.green));
     emit(TaskUpdated(updatedTasks: _tasks, completedTasks: _completedTasks));
   }

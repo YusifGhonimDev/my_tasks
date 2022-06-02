@@ -23,7 +23,7 @@ class _TaskListState extends State<TaskList> {
             width: double.infinity,
             child: Center(
                 child: Text(
-              'Add a task to get started!',
+              'No Tasks Yet :(',
               style: TextStyle(fontSize: 16),
             )))
         : ListView.builder(

@@ -42,4 +42,7 @@ class NotificationHelper {
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime);
   }
+
+  static Future<void> cancelNotification(int id) async =>
+      _notifications.cancel(id);
 }

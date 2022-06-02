@@ -63,6 +63,16 @@ class _TaskDialogState extends State<TaskDialog> {
                   onTap: () async {
                     FocusScope.of(context).unfocus();
                     TimeOfDay? selectedTime = await showTimePicker(
+                      builder: (context, child) {
+                        return Theme(
+                          child: child!,
+                          data: Theme.of(context).copyWith(
+                            colorScheme: const ColorScheme.light(
+                              primary: Colors.purple,
+                            ),
+                          ),
+                        );
+                      },
                       context: context,
                       initialTime: TimeOfDay.now(),
                       initialEntryMode: TimePickerEntryMode.input,
