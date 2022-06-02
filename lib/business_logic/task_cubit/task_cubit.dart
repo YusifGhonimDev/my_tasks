@@ -65,6 +65,7 @@ class TaskCubit extends Cubit<TaskState> {
 
   void deleteTask(int index, int id) {
     _tasks.removeAt(index);
+    _completedTasks.removeWhere((task) => task.id == id);
     DBHelper.deleteData(id);
     emit(SnackBarShown(taskState: 'Deleted', color: Colors.red));
     emit(TaskUpdated(updatedTasks: _tasks, completedTasks: _completedTasks));
