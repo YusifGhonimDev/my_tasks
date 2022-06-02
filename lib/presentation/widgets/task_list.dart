@@ -78,6 +78,12 @@ class _TaskListState extends State<TaskList> {
                         decoration:
                             task.isDone ? TextDecoration.lineThrough : null),
                   ),
+                  subtitle: Text(
+                    task.deadline,
+                    style: const TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
                   trailing: Checkbox(
                       activeColor: Colors.purple,
                       value: task.isDone,

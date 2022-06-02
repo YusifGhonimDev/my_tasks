@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_tasks/business_logic/task_cubit/task_cubit.dart';
-import 'package:my_tasks/helper/notification_helper.dart';
 import 'package:my_tasks/presentation/widgets/task_list.dart';
 import 'package:my_tasks/presentation/widgets/task_text.dart';
 
@@ -18,7 +17,6 @@ class _TaskScreenState extends State<TaskScreen> {
   @override
   void initState() {
     context.read<TaskCubit>().getTasks();
-    NotificationHelper.init();
     super.initState();
   }
 
@@ -30,7 +28,7 @@ class _TaskScreenState extends State<TaskScreen> {
         child: const Icon(Icons.add),
         onPressed: () => showDialog(
             context: context,
-            builder: (context) => TaskDialog(actionText: 'Add')),
+            builder: (context) => const TaskDialog(actionText: 'Add')),
       ),
       backgroundColor: Colors.purple,
       body: SafeArea(

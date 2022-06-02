@@ -32,6 +32,7 @@ class DBHelper {
       CREATE TABLE tasks(
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT,
+      deadline TEXT,
       isDone INTEGER)
       ''');
   }

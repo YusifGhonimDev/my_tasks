@@ -6,7 +6,7 @@ import 'package:timezone/timezone.dart' as tz;
 
 class NotificationHelper {
   static final _notifications = FlutterLocalNotificationsPlugin();
-  static final onNotifications = BehaviorSubject<String?>();
+  static final _onNotifications = BehaviorSubject<String?>();
 
   static Future<void> init({bool initScheduled = false}) async {
     AndroidInitializationSettings android =
@@ -16,7 +16,7 @@ class NotificationHelper {
         InitializationSettings(android: android, iOS: iOS);
     await _notifications.initialize(
       settings,
-      onSelectNotification: (payload) => onNotifications.add(payload),
+      onSelectNotification: (payload) => _onNotifications.add(payload),
     );
   }
 
