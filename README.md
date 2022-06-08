@@ -13,3 +13,16 @@ I wanted to make this project to learn more about state management, clean code, 
 - BLoC
 - SQFLite
 - Local Notifications
+
+<br />
+
+<details>
+  <summary>Project Screenshots</summary>
+  <img src="MyTasks/tasks1.png" name="screenshot1 width="200" height="400"">
+  <img src="MyTasks/tasks2.png" name="screenshot2 width="200" height="400"">
+  <img src="MyTasks/tasks3.png" name="screenshot3 width="200" height="400"">
+  <img src="MyTasks/tasks4.png" name="screenshot4 width="200" height="400"">
+  <img src="MyTasks/tasks5.png" name="screenshot5 width="200" height="400"">
+  <img src="MyTasks/tasks6.png" name="screenshot6 width="200" height="400"">
+  <img src="MyTasks/tasks7.png" name="screenshot7 width="200" height="400"">
+  <img src="MyTasks/tasks8.png" name="screenshot8 width="200" height="400"">
